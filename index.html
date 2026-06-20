@@ -9,22 +9,40 @@
         body {
             background-color: #f9fafb;
         }
-        .scroll-snap-x {
-            scroll-behavior: smooth;
+        
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
         }
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
         .active-tab {
-            border-bottom: 3px solid #ff8c00;
+            color: #ff8c00;
+            border-bottom: 2px solid #ff8c00;
+        }
+        
+        .inactive-tab {
+            color: #9ca3af;
+        }
+        
+        .line-clamp-2 {
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
         }
     </style>
 </head>
-<body class="bg-gray-50 pb-20">
+<body class="bg-gray-50">
     <!-- HEADER STICKY -->
-    <header class="sticky top-0 z-50 bg-white shadow-md">
+    <header class="sticky top-0 z-50 bg-white">
         <div class="px-4 py-3 flex items-center justify-between gap-3">
             <!-- Logo + Nom -->
             <div class="flex items-center gap-2 flex-shrink-0">
                 <div class="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center text-white font-bold text-lg">C</div>
-                <span class="font-bold text-lg text-orange-500">Congo Business</span>
+                <span class="font-bold text-lg text-orange-500">Congo</span>
             </div>
             
             <!-- Barre de recherche -->
@@ -36,127 +54,251 @@
             </div>
         </div>
         
-        <!-- Menu Onglets -->
-        <div class="flex border-b border-gray-200 px-4">
-            <button class="py-3 px-4 text-sm font-medium text-orange-500 active-tab">Produits</button>
-            <button class="py-3 px-4 text-sm font-medium text-gray-400">Vendeur</button>
+        <!-- Menu Onglets Alibaba Style -->
+        <div class="border-b border-gray-200">
+            <div class="flex px-4">
+                <button onclick="showTab('products')" class="py-3 px-4 text-sm font-medium active-tab border-b-2 border-orange-500">Produits</button>
+                <button onclick="showTab('manufacturers')" class="py-3 px-4 text-sm font-medium inactive-tab">Fabricants</button>
+            </div>
         </div>
     </header>
 
     <!-- CATÉGORIES HORIZONTALES SCROLLABLES -->
-    <div class="px-4 py-3 overflow-x-auto scrollbar-hide bg-white border-b border-gray-200">
+    <div class="px-4 py-3 overflow-x-auto no-scrollbar bg-white border-b border-gray-200">
         <div class="flex gap-3 whitespace-nowrap">
-            <button class="px-4 py-2 bg-orange-500 text-white rounded-full text-sm font-medium">Tous</button>
-            <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium">Jeux</button>
-            <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium">Bijoux</button>
-            <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium">Maquillage</button>
+            <button class="px-4 py-2 bg-orange-500 text-white rounded-full text-sm font-medium flex-shrink-0 whitespace-nowrap">Tous</button>
+            <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium flex-shrink-0 whitespace-nowrap">Jeux</button>
+            <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium flex-shrink-0 whitespace-nowrap">Bijoux</button>
+            <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium flex-shrink-0 whitespace-nowrap">Maquillage</button>
+            <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium flex-shrink-0 whitespace-nowrap">Téléphones</button>
+            <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium flex-shrink-0 whitespace-nowrap">Vêtements</button>
+            <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium flex-shrink-0 whitespace-nowrap">Maison</button>
+            <button class="px-4 py-2 bg-gray-200 text-gray-700 rounded-full text-sm font-medium flex-shrink-0 whitespace-nowrap">Auto</button>
         </div>
     </div>
 
     <!-- SECTION PRINCIPALE -->
-    <main class="px-4 py-6 space-y-6">
+    <main class="px-4 py-6 space-y-6 pb-20">
         
-        <!-- 3 BOUTONS D'ACTION EN GRILLE -->
-        <div class="grid grid-cols-3 gap-3">
-            <button class="p-3 bg-orange-100 rounded-lg text-center hover:bg-orange-200 transition">
-                <div class="text-2xl mb-1">📦</div>
-                <p class="text-xs font-bold text-orange-700">Explorer par catégorie</p>
+        <!-- 4 BOUTONS EN GRILLE -->
+        <div class="grid grid-cols-4 gap-3">
+            <button class="p-3 bg-white rounded-lg text-center hover:shadow-md transition border border-gray-200">
+                <div class="text-2xl mb-1">🔍</div>
+                <p class="text-xs font-bold text-gray-700">Explorer</p>
             </button>
-            <button class="p-3 bg-green-100 rounded-lg text-center hover:bg-green-200 transition">
-                <div class="text-2xl mb-1">💬</div>
-                <p class="text-xs font-bold text-green-700">Demander un devis</p>
+            <button class="p-3 bg-white rounded-lg text-center hover:shadow-md transition border border-gray-200">
+                <div class="text-2xl mb-1">📋</div>
+                <p class="text-xs font-bold text-gray-700">Devis</p>
             </button>
-            <button class="p-3 bg-yellow-100 rounded-lg text-center hover:bg-yellow-200 transition">
-                <div class="text-2xl mb-1">🏆</div>
-                <p class="text-xs font-bold text-yellow-700">Top classement</p>
+            <button class="p-3 bg-white rounded-lg text-center hover:shadow-md transition border border-gray-200">
+                <div class="text-2xl mb-1">⭐</div>
+                <p class="text-xs font-bold text-gray-700">Top</p>
+            </button>
+            <button class="p-3 bg-red-100 rounded-lg text-center hover:shadow-md transition border border-red-200">
+                <div class="text-2xl mb-1">🏪</div>
+                <p class="text-xs font-bold text-red-700">Vendeur</p>
             </button>
         </div>
 
-        <!-- SECTION MEILLEURES OFFRES -->
-        <section>
-            <div class="mb-4">
-                <h2 class="text-lg font-bold text-gray-900">Meilleures offres</h2>
-                <p class="text-xs text-gray-500">Trouvez les meilleurs prix sur Congo Business</p>
-            </div>
-            <div class="grid grid-cols-2 gap-3">
-                <!-- Carte Produit 1 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
-                    <div class="w-full h-32 bg-gray-300"></div>
-                    <div class="p-3">
-                        <p class="text-sm font-bold text-orange-500">2,500 FC</p>
-                        <p class="text-xs text-gray-600 line-clamp-2">Produit de qualité supérieure</p>
+        <!-- ONGLET PRODUITS -->
+        <div id="products-tab">
+            <!-- SECTION MEILLEURES OFFRES -->
+            <section>
+                <div class="mb-4">
+                    <h2 class="text-lg font-bold text-gray-900">Meilleures offres</h2>
+                    <p class="text-xs text-gray-500">Trouvez les meilleurs prix sur Congo Business</p>
+                </div>
+                <div class="overflow-x-auto no-scrollbar">
+                    <div class="flex gap-4 pb-4">
+                        <!-- Carte Produit 1 -->
+                        <div onclick="openProduct(1)" class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition cursor-pointer w-40 flex-shrink-0">
+                            <div class="w-full h-32 bg-gradient-to-br from-blue-200 to-blue-300 flex items-center justify-center">
+                                <span class="text-4xl">👟</span>
+                            </div>
+                            <div class="p-3">
+                                <p class="text-sm font-bold text-orange-500">2,500 FC</p>
+                                <p class="text-xs text-gray-600 line-clamp-2">Chaussures de sport premium</p>
+                            </div>
+                        </div>
+                        <!-- Carte Produit 2 -->
+                        <div onclick="openProduct(2)" class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition cursor-pointer w-40 flex-shrink-0">
+                            <div class="w-full h-32 bg-gradient-to-br from-pink-200 to-pink-300 flex items-center justify-center">
+                                <span class="text-4xl">💄</span>
+                            </div>
+                            <div class="p-3">
+                                <p class="text-sm font-bold text-orange-500">1,800 FC</p>
+                                <p class="text-xs text-gray-600 line-clamp-2">Palette maquillage haute qualité</p>
+                            </div>
+                        </div>
+                        <!-- Carte Produit 3 -->
+                        <div onclick="openProduct(3)" class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition cursor-pointer w-40 flex-shrink-0">
+                            <div class="w-full h-32 bg-gradient-to-br from-yellow-200 to-yellow-300 flex items-center justify-center">
+                                <span class="text-4xl">📱</span>
+                            </div>
+                            <div class="p-3">
+                                <p class="text-sm font-bold text-orange-500">3,200 FC</p>
+                                <p class="text-xs text-gray-600 line-clamp-2">Téléphone dernière génération</p>
+                            </div>
+                        </div>
+                        <!-- Carte Produit 4 -->
+                        <div onclick="openProduct(4)" class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition cursor-pointer w-40 flex-shrink-0">
+                            <div class="w-full h-32 bg-gradient-to-br from-green-200 to-green-300 flex items-center justify-center">
+                                <span class="text-4xl">👜</span>
+                            </div>
+                            <div class="p-3">
+                                <p class="text-sm font-bold text-orange-500">950 FC</p>
+                                <p class="text-xs text-gray-600 line-clamp-2">Sac à main classe premium</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <!-- Carte Produit 2 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
-                    <div class="w-full h-32 bg-gray-300"></div>
-                    <div class="p-3">
-                        <p class="text-sm font-bold text-orange-500">1,800 FC</p>
-                        <p class="text-xs text-gray-600 line-clamp-2">Article très recherché</p>
-                    </div>
-                </div>
-                <!-- Carte Produit 3 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
-                    <div class="w-full h-32 bg-gray-300"></div>
-                    <div class="p-3">
-                        <p class="text-sm font-bold text-orange-500">3,200 FC</p>
-                        <p class="text-xs text-gray-600 line-clamp-2">Meilleure sélection</p>
-                    </div>
-                </div>
-                <!-- Carte Produit 4 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
-                    <div class="w-full h-32 bg-gray-300"></div>
-                    <div class="p-3">
-                        <p class="text-sm font-bold text-orange-500">950 FC</p>
-                        <p class="text-xs text-gray-600 line-clamp-2">Prix réduit ce mois</p>
-                    </div>
-                </div>
-            </div>
-        </section>
+            </section>
+        </div>
 
-        <!-- SECTION NOUVEAUTÉS -->
-        <section>
-            <div class="mb-4">
-                <h2 class="text-lg font-bold text-gray-900">Nouveautés</h2>
-            </div>
-            <div class="grid grid-cols-2 gap-3">
-                <!-- Carte Vide 1 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
-                    <div class="w-full h-32 bg-gray-300"></div>
-                    <div class="p-3">
-                        <p class="text-sm font-bold text-orange-500">--</p>
-                        <p class="text-xs text-gray-600">Produit en attente</p>
-                    </div>
+        <!-- ONGLET FABRICANTS (CACHÉ AU DÉBUT) -->
+        <div id="manufacturers-tab" class="hidden">
+            <section>
+                <div class="mb-4">
+                    <h2 class="text-lg font-bold text-gray-900">Fabricants vérifiés</h2>
+                    <p class="text-xs text-gray-500">Les meilleurs vendeurs de Congo Business</p>
                 </div>
-                <!-- Carte Vide 2 -->
-                <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
-                    <div class="w-full h-32 bg-gray-300"></div>
-                    <div class="p-3">
-                        <p class="text-sm font-bold text-orange-500">--</p>
-                        <p class="text-xs text-gray-600">Produit en attente</p>
+                <div class="space-y-3">
+                    <!-- Vendeur 1 -->
+                    <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+                        <div class="flex items-start gap-3">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">AB</div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2">
+                                    <p class="text-sm font-bold text-gray-900">Ablast Trading</p>
+                                    <span class="text-xs text-green-600 font-medium">✓ Vérifié</span>
+                                </div>
+                                <p class="text-xs text-gray-500">5 ans sur Congo Business</p>
+                                <p class="text-xs text-gray-600 mt-1">Taux de réponse: 98%</p>
+                                <button class="mt-2 w-full py-2 bg-green-500 text-white text-xs font-bold rounded-lg hover:bg-green-600 transition flex items-center justify-center gap-2">
+                                    <span>💬</span> WhatsApp
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </section>
 
-        <!-- SECTION PROPOSITION DE PRODUIT -->
-        <section>
-            <div class="mb-4">
-                <h2 class="text-lg font-bold text-gray-900">Proposition de produit</h2>
-            </div>
-            <div class="bg-white rounded-lg shadow-sm overflow-hidden hover:shadow-md transition">
-                <div class="w-full h-48 bg-gray-300"></div>
-                <div class="p-4">
-                    <p class="text-sm font-bold text-orange-500">--</p>
-                    <p class="text-xs text-gray-600">Produit spécial en vedette</p>
+                    <!-- Vendeur 2 -->
+                    <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+                        <div class="flex items-start gap-3">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-blue-400 to-blue-600 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">PR</div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2">
+                                    <p class="text-sm font-bold text-gray-900">Pro Luxe Shop</p>
+                                    <span class="text-xs text-green-600 font-medium">✓ Vérifié</span>
+                                </div>
+                                <p class="text-xs text-gray-500">3 ans sur Congo Business</p>
+                                <p class="text-xs text-gray-600 mt-1">Taux de réponse: 95%</p>
+                                <button class="mt-2 w-full py-2 bg-green-500 text-white text-xs font-bold rounded-lg hover:bg-green-600 transition flex items-center justify-center gap-2">
+                                    <span>💬</span> WhatsApp
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Vendeur 3 -->
+                    <div class="bg-white rounded-lg shadow-sm p-4 border border-gray-200">
+                        <div class="flex items-start gap-3">
+                            <div class="w-12 h-12 rounded-full bg-gradient-to-br from-red-400 to-red-600 flex items-center justify-center text-white font-bold text-lg flex-shrink-0">CB</div>
+                            <div class="flex-1">
+                                <div class="flex items-center gap-2">
+                                    <p class="text-sm font-bold text-gray-900">Congo Best Deals</p>
+                                    <span class="text-xs text-green-600 font-medium">✓ Vérifié</span>
+                                </div>
+                                <p class="text-xs text-gray-500">7 ans sur Congo Business</p>
+                                <p class="text-xs text-gray-600 mt-1">Taux de réponse: 99%</p>
+                                <button class="mt-2 w-full py-2 bg-green-500 text-white text-xs font-bold rounded-lg hover:bg-green-600 transition flex items-center justify-center gap-2">
+                                    <span>💬</span> WhatsApp
+                                </button>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
 
     </main>
 
-    <!-- BARRE DE NAVIGATION FIXE EN BAS -->
-    <nav class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg">
+    <!-- PAGE DÉTAIL PRODUIT (CACHÉE) -->
+    <div id="product-detail" class="fixed inset-0 bg-white z-50 hidden overflow-y-auto pb-20">
+        <!-- Bouton retour -->
+        <div class="sticky top-0 bg-white border-b border-gray-200 px-4 py-3 flex items-center z-40">
+            <button onclick="closeProduct()" class="text-2xl text-gray-700 hover:text-gray-900">←</button>
+        </div>
+
+        <div class="px-4 py-6 space-y-4">
+            <!-- Grande image produit -->
+            <div id="product-image" class="w-full h-64 bg-gradient-to-br from-blue-200 to-blue-300 rounded-lg flex items-center justify-center">
+                <span class="text-6xl">👟</span>
+            </div>
+
+            <!-- Prix en orange gros -->
+            <div>
+                <p id="product-price" class="text-3xl font-bold text-orange-500">2,500 FC</p>
+            </div>
+
+            <!-- Titre produit -->
+            <div>
+                <p id="product-title" class="text-lg font-bold text-gray-900">Chaussures de sport premium</p>
+            </div>
+
+            <!-- Notation -->
+            <div class="flex items-center gap-2">
+                <span class="text-lg">★★★★★</span>
+                <span class="text-sm text-gray-600">5.0 (124 avis)</span>
+            </div>
+
+            <!-- Specs en grille 2 colonnes -->
+            <div class="bg-gray-50 rounded-lg p-4">
+                <h3 class="text-sm font-bold text-gray-900 mb-3">Caractéristiques</h3>
+                <div class="grid grid-cols-2 gap-3">
+                    <div>
+                        <p class="text-xs text-gray-600">Marque</p>
+                        <p class="text-sm font-medium text-gray-900">Premium Sport</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-600">Taille</p>
+                        <p class="text-sm font-medium text-gray-900">39-45</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-600">Couleur</p>
+                        <p class="text-sm font-medium text-gray-900">Noir/Blanc</p>
+                    </div>
+                    <div>
+                        <p class="text-xs text-gray-600">Matière</p>
+                        <p class="text-sm font-medium text-gray-900">Cuir synthétique</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Infos vendeur -->
+            <div class="bg-white border border-gray-200 rounded-lg p-4">
+                <h3 class="text-sm font-bold text-gray-900 mb-3">Vendeur</h3>
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 rounded-full bg-gradient-to-br from-orange-400 to-orange-600 flex items-center justify-center text-white font-bold text-sm">AB</div>
+                    <div>
+                        <p class="text-sm font-bold text-gray-900">Ablast Trading</p>
+                        <p class="text-xs text-gray-600">Vérifié • 5 ans</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Espacement pour les boutons fixes -->
+            <div class="h-20"></div>
+        </div>
+    </div>
+
+    <!-- 2 BOUTONS FIXES EN BAS (PAGE DÉTAIL) -->
+    <div id="product-buttons" class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-3 hidden gap-3 grid grid-cols-2 z-40">
+        <button class="py-3 bg-orange-100 text-orange-700 font-bold rounded-lg hover:bg-orange-200 transition">💬 Discuter</button>
+        <button class="py-3 bg-orange-500 text-white font-bold rounded-lg hover:bg-orange-600 transition">📋 Demander devis</button>
+    </div>
+
+    <!-- BARRE DE NAVIGATION FIXE EN BAS (PAGE PRINCIPALE) -->
+    <nav id="bottom-nav" class="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-lg">
         <div class="flex justify-around">
             <!-- Accueil -->
             <button class="flex-1 py-3 flex flex-col items-center justify-center gap-1 text-orange-500 hover:bg-gray-50 transition">
@@ -181,20 +323,82 @@
         </div>
     </nav>
 
-    <style>
-        .scrollbar-hide::-webkit-scrollbar {
-            display: none;
+    <script>
+        // Produits exemple
+        const products = {
+            1: {
+                title: "Chaussures de sport premium",
+                price: "2,500 FC",
+                image: "👟",
+                color: "from-blue-200 to-blue-300"
+            },
+            2: {
+                title: "Palette maquillage haute qualité",
+                price: "1,800 FC",
+                image: "💄",
+                color: "from-pink-200 to-pink-300"
+            },
+            3: {
+                title: "Téléphone dernière génération",
+                price: "3,200 FC",
+                image: "📱",
+                color: "from-yellow-200 to-yellow-300"
+            },
+            4: {
+                title: "Sac à main classe premium",
+                price: "950 FC",
+                image: "👜",
+                color: "from-green-200 to-green-300"
+            }
+        };
+
+        // Afficher/cacher les onglets Produits et Fabricants
+        function showTab(tab) {
+            const productsTab = document.getElementById('products-tab');
+            const manufacturersTab = document.getElementById('manufacturers-tab');
+            const productsBtn = document.querySelectorAll('[onclick*="showTab"]')[0];
+            const manufacturersBtn = document.querySelectorAll('[onclick*="showTab"]')[1];
+
+            if (tab === 'products') {
+                productsTab.classList.remove('hidden');
+                manufacturersTab.classList.add('hidden');
+                productsBtn.classList.add('active-tab');
+                productsBtn.classList.remove('inactive-tab');
+                manufacturersBtn.classList.remove('active-tab');
+                manufacturersBtn.classList.add('inactive-tab');
+            } else {
+                productsTab.classList.add('hidden');
+                manufacturersTab.classList.remove('hidden');
+                productsBtn.classList.remove('active-tab');
+                productsBtn.classList.add('inactive-tab');
+                manufacturersBtn.classList.add('active-tab');
+                manufacturersBtn.classList.remove('inactive-tab');
+            }
         }
-        .scrollbar-hide {
-            -ms-overflow-style: none;
-            scrollbar-width: none;
+
+        // Ouvrir la page détail produit
+        function openProduct(productId) {
+            const product = products[productId];
+            document.getElementById('product-title').textContent = product.title;
+            document.getElementById('product-price').textContent = product.price;
+            
+            const imageDiv = document.getElementById('product-image');
+            imageDiv.innerHTML = `<span class="text-6xl">${product.image}</span>`;
+            imageDiv.className = `w-full h-64 bg-gradient-to-br ${product.color} rounded-lg flex items-center justify-center`;
+            
+            document.getElementById('product-detail').classList.remove('hidden');
+            document.getElementById('product-buttons').classList.remove('hidden');
+            document.getElementById('bottom-nav').classList.add('hidden');
+            document.body.style.overflow = 'hidden';
         }
-        .line-clamp-2 {
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+
+        // Fermer la page détail produit
+        function closeProduct() {
+            document.getElementById('product-detail').classList.add('hidden');
+            document.getElementById('product-buttons').classList.add('hidden');
+            document.getElementById('bottom-nav').classList.remove('hidden');
+            document.body.style.overflow = 'auto';
         }
-    </style>
+    </script>
 </body>
 </html>
